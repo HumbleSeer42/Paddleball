@@ -29,8 +29,10 @@ public class Main implements ApplicationListener {
     Float dx;
     Float dy;
     RandomGenerator r = new Random();
-    Label l;
-    LabelStyle ls;
+    Label label;
+    LabelStyle labelStyle;
+    int score;
+    boolean isRunning = true;
 
     public Float setvel() {
         Float v = r.nextFloat(1f, 5f);
@@ -49,9 +51,9 @@ public class Main implements ApplicationListener {
         paddleRect = new Rectangle();
         ballRect = new Rectangle();
         BitmapFont bmf = new BitmapFont();
-        ls = new LabelStyle(bmf, Color.BLACK);
-        l = new Label("Game Over!", ls);
-        l.setPosition(250f, 250f);
+        labelStyle = new LabelStyle(bmf, Color.BLACK);
+        label = new Label("", labelStyle);
+        label.setPosition(250f, 250f);
 
         paddle.setSize(150f, 30f);
         paddle.setX(250f);
@@ -77,9 +79,12 @@ public class Main implements ApplicationListener {
     public void render() {
         // Draw your application here.
         draw();
-        input(paddle);
-        moveBall();
-        checkHitPaddle();
+
+        if (isRunning) {
+            input(paddle);
+            moveBall();
+            checkHitPaddle();
+        }
     }
 
     @Override
@@ -106,8 +111,7 @@ public class Main implements ApplicationListener {
         } else if (ball.getX() > 590f) {
             dx = -1f * setvel();
         } else if (ball.getY() < 0f) {
-            dy = 0f;
-            dx = 0f;
+            isRunning = false;
         } else if (ball.getX() < 0f) {
             dx = 1f * setvel();
         }
@@ -124,6 +128,7 @@ public class Main implements ApplicationListener {
 
         if (ballRect.overlaps(paddleRect)) {
             dy = 1f * setvel();
+            score = score + 1;
         }
     }
 
@@ -137,7 +142,10 @@ public class Main implements ApplicationListener {
         ball.draw(sb);
 
         if (ball.getY() < 0f) {
-            l.draw(sb, 1.0f);
+            isRunning = false;
+            label.setText(("GAME OVER! Score: " + score));
+            label.draw(sb, 1.0f);
+            preventMovement();
         }
 
         sb.end();
@@ -156,6 +164,21 @@ public class Main implements ApplicationListener {
             } else {
                 paddle.setX(paddle.getX() - 5);
             }
+        }
+    }
+
+    public void preventMovement() {
+        dx = 0f;
+        dy = 0f;
+        paddle.setX(paddle.getX());
+        ball.setX(ball.getX());
+
+        if (Gdx.input.isKeyPressed(Keys.R)) {
+            isRunning = true;
+            score = 0;
+            ball.setPosition(250f, 250f);
+            dx = 1f * setvel();
+            dy = 1f * setvel();
         }
     }
 }
