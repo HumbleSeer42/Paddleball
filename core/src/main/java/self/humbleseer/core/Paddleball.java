@@ -1,4 +1,4 @@
-package self.humbleseer.Paddleball;
+package self.humbleseer.core;
 
 import java.util.Random;
 import java.util.random.RandomGenerator;
@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main implements ApplicationListener {
+public class Paddleball implements ApplicationListener {
     // Important stuff
     Sprite paddle;
     Sprite ball;
