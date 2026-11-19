@@ -1,19 +1,34 @@
 # PaddleBall
 
-This project was made with libGDX
+A simple paddle ball game built with libGDX in Java.
 
-You will need a JVM to run the game
+## Requirements
+- Java 25 or later (both JDK and JVM)
+- Maven
 
-To buiild from source (assuming you have a JDK and Maven installed):
+## Build
+
+To build from source, clone this git repo and then cd into it:
 
 ```bash
-maven package -Pdesktop
+git clone https://github.com/HumbleSeer42/Paddleball
+cd Paddleball
+mvn package -Pdesktop
 ```
 
-and the jar should be in `desktop/target/`
+The resulting jar should be in `desktop/target`
 
-to play you use left and right arrows, r to restart the game
+## Running
+
+Run the jar using the below command
+
+```bash
+java -jar desktop/target/Paddleball-desktop-0.1.0-jar-with-dependencies.jar
+```
+
+To play you use left and right arrows to move the paddle, r to restart the game when the ball hits the floor.
 
 # Future progress
 
-Brick Breaker Game
+- Add speed levels dependent upon score
+- Maybe this will become a brick breaker game.
